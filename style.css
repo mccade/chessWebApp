@@ -1,0 +1,35 @@
+body{
+    background-color: darkgray;
+}
+
+h1{
+    color: white;
+    size: 24;
+}
+
+table, td{
+    border: 1px solid black;
+}
+
+tr td{
+    background-color: tan;
+}
+
+.blackTeam{
+    background-color: black;
+    color: white;
+}
+
+.whiteTeam{
+    background-color: white;
+    color: black;
+}
+
+.noTeam{
+    background-color: transparent;
+}
+
+tr:nth-child(even) td:nth-child(odd),
+tr:nth-child(odd) td:nth-child(even){
+    background-color: sienna;
+}
