@@ -9,6 +9,7 @@ var i;
 var j;
 var side;
 var castleTemp;
+var currentTeam = "whiteTeam";
 
 //check whether the player can castle
 function castleCheck(paramID){
@@ -16,8 +17,8 @@ function castleCheck(paramID){
     if(document.getElementById(paramID).innerHTML != "NA"){
         side = prompt("Left or Right?");
     }
-    //checks which team's button was clicked, then uses prompt's input to determine which spaces to check
-    if(paramID == "castleWhite"){
+    //checks which team's turn it was, then uses prompt's input to determine which spaces to check
+    if(currentTeam == "whiteTeam"){
         if(side == "Left"){
             if(document.getElementById("58").className == "noTeam" && document.getElementById("59").className == "noTeam" && document.getElementById("60").className == "noTeam"){
                 document.getElementById("57").innerHTML = "";
@@ -29,6 +30,8 @@ function castleCheck(paramID){
                 document.getElementById("60").innerHTML = "Rook";
                 document.getElementById("60").className = "whiteTeam";
                 document.getElementById(paramID).innerHTML = "NA";
+                currentTeam = "blackTeam";
+                document.getElementById("title").className = "blackTitle";
             }
         }
         if(side == "Right"){
@@ -42,10 +45,12 @@ function castleCheck(paramID){
                 document.getElementById("62").innerHTML = "Rook";
                 document.getElementById("62").className = "whiteTeam";
                 document.getElementById(paramID).innerHTML = "NA";
+                currentTeam = "blackTeam";
+                document.getElementById("title").className = "blackTitle";
             }
         }
     }
-    if(paramID == "castleBlack"){
+    else if(currentTeam == "blackTeam"){
         if(side == "Left"){
             if(document.getElementById("2").className == "noTeam" && document.getElementById("3").className == "noTeam" && document.getElementById("4").className == "noTeam"){
                 document.getElementById("1").innerHTML = "";
@@ -57,6 +62,8 @@ function castleCheck(paramID){
                 document.getElementById("4").innerHTML = "Rook";
                 document.getElementById("4").className = "blackTeam";
                 document.getElementById(paramID).innerHTML = "NA";
+                currentTeam = "whiteTeam";
+                document.getElementById("title").className = "whiteTitle";
             }
         }
         if(side == "Right"){
@@ -69,7 +76,8 @@ function castleCheck(paramID){
                 document.getElementById("7").className = "blackTeam";
                 document.getElementById("6").innerHTML = "Rook";
                 document.getElementById("6").className = "blackTeam";
-                document.getElementById(paramID).innerHTML = "NA";
+                document.getElementById(paramID).innerHTML = "NA";currentTeam = "whiteTeam";
+                document.getElementById("title").className = "whiteTitle";
             }
         }
     }
@@ -95,9 +103,17 @@ function movePiece(paramID){
     else{
         secondPieceText = document.getElementById(paramID).innerHTML;
         secondPieceClass = document.getElementById(paramID).className;
-        if(firstPieceClass != document.getElementById(paramID).className && firstPieceClass != "noTeam"){
+        if(firstPieceClass != document.getElementById(paramID).className && firstPieceClass == currentTeam){
             //calls validMove to determine move legality
             if(validMove(firstPiece, document.getElementById(paramID))){
+                if(currentTeam == "whiteTeam"){
+                    currentTeam = "blackTeam";
+                    document.getElementById("title").className = "blackTitle";
+                }
+                else if(currentTeam = "blackTeam"){
+                    currentTeam = "whiteTeam";
+                    document.getElementById("title").className = "whiteTitle";
+                }
                 firstPiece.innerHTML = "";
                 firstPiece.className = "noTeam";
                 //win state
